@@ -10,17 +10,21 @@ def request_helper(request, validateSchema=False, schema={} ):
 
         if request_validator(valid_json) == True and valid_schema['isValid'] == True or validateSchema == False:
             valid_json['status'] = "success"
-            valid_json['response'] = "request can be processed"
+            valid_json['response_message'] = "request can be processed"
         else:
             valid_json['status'] = 'error',
-            valid_json['response'] = 'request could not pass validation gate'
+            valid_json['response_message'] = 'request could not pass validation gate'
+
+            for key, value in valid_json['data'].items():
+                valid_json['data'][str(key)] = "hashed value: " + str(hash(value))
 
         return jsonify({
-            "data": {"response": valid_json['response']},
+            "data": valid_json['data'],
             "status": valid_json['status'],
             "type": 'API',
             "keys": len(valid_json['data']),
-            "schema": valid_schema
+            "schema": valid_schema,
+            "response_message": valid_json['response_message']
         })
     except: 
         invalid_json = {
