@@ -1,0 +1,2 @@
+FLASK_APP=backend.py
+DATABASE_URL=mysql://USERNAME:PASSWORD@127.0.0.1:3306/prototype
