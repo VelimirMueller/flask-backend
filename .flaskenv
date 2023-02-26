@@ -1,2 +1,0 @@
-FLASK_APP=backend.py
-DATABASE_URL=
