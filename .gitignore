@@ -1,4 +1,5 @@
 *.flaskenv
 __pycache__/
-*.txt
+test*.txt
 *.gitignore
+*venv/
