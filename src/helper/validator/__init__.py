@@ -1,5 +1,5 @@
 def request_validator(jsonData) -> bool:
-    if type(jsonData) is dict:
+    if type(jsonData) is dict or type(jsonData) is str:
         return True
     else:
         return False

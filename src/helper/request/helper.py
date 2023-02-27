@@ -4,8 +4,19 @@ from src.helper.validator import request_validator, schema_validator
 from flask import jsonify
 
 def request_helper(request, validateSchema=False, schema={} ):
+    error_in_request_helper = False
+    error_in_validator = False
+    errors = []
+
     try:
         valid_json = eval(request)
+        
+    except Exception as err:
+        error_in_request_helper = True
+        valid_json = request
+        errors.append({'request_helper_error': str(err)})
+
+    try:
         valid_schema = schema_validator(valid_json['data'], validateSchema, schema)
 
         if request_validator(valid_json) == True and valid_schema['isValid'] == True or validateSchema == False:
@@ -17,24 +28,24 @@ def request_helper(request, validateSchema=False, schema={} ):
 
             for key, value in valid_json['data'].items():
                 valid_json['data'][str(key)] = "hashed value: " + str(hash(value))
+    except Exception as err:
+        error_in_validator = True
+        errors.append({'validator_error': str(err)})
 
+    if error_in_request_helper == False and error_in_validator == False:
         return jsonify({
             "data": valid_json['data'],
             "status": valid_json['status'],
             "type": 'API',
             "keys": len(valid_json['data']),
             "schema": valid_schema,
-            "response_message": valid_json['response_message']
+            "response_message": valid_json['response_message'],
+            "requestHelperError": error_in_request_helper,
+            "validatorError": error_in_validator
         })
-    except: 
-        invalid_json = {
-            'error': api_exception(msg_api['data_invalid'], request),
-            'status': 'error',
-            'error_message': 'invalid syntax'
-        }
-
+    else:
         return jsonify({
-            "status": invalid_json['status'],
-            "error": invalid_json['error'],
-            "error_message": invalid_json['error_message']
+            "error": "Critical processing error",
+            "receivedData": valid_json,
+            "errors": errors
         })

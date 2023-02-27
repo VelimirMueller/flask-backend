@@ -10,7 +10,7 @@ class User(UserMixin, db.Model):
     password = db.Column(db.String(128))
     registered_at = db.Column(db.DateTime)
     last_login = db.Column(db.DateTime)
-
+    
     def set_hashed_password(self, password):
         self.password_hash = generate_password_hash(password)
 
