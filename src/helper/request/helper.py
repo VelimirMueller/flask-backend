@@ -4,6 +4,11 @@ from src.messages import API_MESSAGES
 import os
 
 def request_helper(request:dict, validateSchema:bool=False , schema:dict={}):
+    # Prepares request for processing and also validates if the request is in correct json format.
+    # Can also validate the reuest schema fits into a defeined one in src/helper/validator/schema.
+    # NOT RECOMMENDED: schema validation can be skipped but it comes in really handy to only process data which is essential.
+    # Validating a schema has many pros, like forcing the developer to code more clean. But some people will not like it so
+    # an option to disable schema validation but still keeping the API fully functional was implmeneted.
     if 'exception' in request['data']:
         if str(os.environ.get('DEV_MODE')) == '1':
             devDebugMsg = request['data']
