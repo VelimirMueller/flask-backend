@@ -1,5 +1,8 @@
 FLASK_APP=backend.py
 DATABASE_URL=mysql://USERNAME:PASSWORD@127.0.0.1:3306/prototype
 
-# DEV MODE - uncomment to activate dev mode, to turn it off again, set the value to 0 (or anything else ;))
-# DEV_MODE=1
+# DEV MODE - uncomment next line # to activate dev mode, to turn it off again, set the value to 0 (or anything else ;))
+#DEV_MODE=1
+
+# SECRET_KEY - will be used for JWT Auth later but has no use atm - will be implemented soon
+#SECRET_KEY=
