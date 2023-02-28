@@ -5,8 +5,8 @@ def request_validator(jsonData) -> bool:
         return False
 
     
-def schema_validator(jsonData, validateSchema=False, schema={}):
-    if validateSchema == False:
+def schema_validator(jsonData, validateSchema=False, useSchema={}):
+    if validateSchema == False or jsonData == False:
         return {
             "status": 'Schema was not validated - please make sure you know what you are doing or enable schema validation in request_helper()!',
             'isValid': 'undefined'
@@ -18,7 +18,7 @@ def schema_validator(jsonData, validateSchema=False, schema={}):
     for key, val in jsonData.items():
         jsonCache.append(key)
         jsonCache.sort()
-    for key, val in schema.items():
+    for key, val in useSchema.items():
         validSchema[key] = val
         schemaCache.append(key)
         schemaCache.sort()
