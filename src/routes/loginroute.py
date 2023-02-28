@@ -6,7 +6,10 @@ from src.helper.validator import schema_validator
 from src.helper.validator.schemas import USER_LOGIN_SCHEMA
 
 @app.route('/login', methods=['POST', 'GET'])
-def login():
+def login()->dict:
+    # Login API endpoint with schema validation.
+    # Returns a json response after receiving a request at /login.
+    # TODO: implement jwt authentication and oAuth and set remember cookie
     processableRequest = return_transformed_normalized_json(request)
     
     processedSchema = schema_validator(
