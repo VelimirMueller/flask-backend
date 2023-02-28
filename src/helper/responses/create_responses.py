@@ -1,6 +1,7 @@
 import os, json
 
-def return_success_response(successMessage, type, keysInRequest, schema):
+def return_success_response(successMessage:str, type:str, keysInRequest:int, schema:dict)->dict:
+    # Returns a normalized success response in json format. This way the shema of responses are always the same which should be a big plus while developing.
     return {
         'successMessage': successMessage,
         'status': 'success',
@@ -10,7 +11,8 @@ def return_success_response(successMessage, type, keysInRequest, schema):
         'statusCode': 200
     }
 
-def return_error_response(errorMessage, type='error type was not set', keysInRequest='not checked', schema='not checked', statusCode=400):
+def return_error_response(errorMessage:str, type:str='error type was not set', keysInRequest:str | int='not checked', schema:dict | str='not checked', statusCode:int=400)->dict:
+    # Returns a normalized success response in json format. This way the shema of responses are always the same which should be a big plus while developing.
     return {
         'errorMessage': errorMessage,
         'status': 'error',
@@ -20,7 +22,9 @@ def return_error_response(errorMessage, type='error type was not set', keysInReq
         'statusCode': statusCode
     }
 
-def return_error_response_dev(errorMessage, type='error type was not set', keysInRequest='not checked', schema='not checked', statusCode=400, isDevMode=False, devDebuggingMessage='dev mode not active - pls set DEV_MODE=1 in .flaskenv'):
+def return_error_response_dev(errorMessage:str, type:str='error type was not set', keysInRequest:str | int='not checked', schema:str | bool='not checked', statusCode:int=400, isDevMode:bool=False, devDebuggingMessage:str | dict='dev mode not active - pls set DEV_MODE=1 in .flaskenv')->dict:
+    # Returns like return_error_response an normalized response. The only difference occurs when setting DEV_MODE=1 in .flaskenv.
+    # This way the response will contain a dev debugging message, containing the exception message
     if str(os.environ.get('DEV_MODE')) == "1":
         isDevMode = True
         devDebuggingMessage = devDebuggingMessage
