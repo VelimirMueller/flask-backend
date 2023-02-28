@@ -41,7 +41,7 @@ def transform_normalized_json(jsonData:dict) ->dict:
         return data_processing_exception(DATA_PROCESSING_MESSAGES['critical'], 500, str(err))
 
 
-def return_transformed_normalized_json(jsonData :dict[str, any]) ->dict[str, any]:
+def return_transformed_normalized_json(jsonData :dict) ->dict:
     try:
         normalizedJson = json_normalizer(jsonData)
         transformedNormalizedJson = transform_normalized_json(normalizedJson)
