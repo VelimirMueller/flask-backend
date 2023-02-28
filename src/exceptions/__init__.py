@@ -1,2 +1,3 @@
 from src.exceptions.api_exception import api_exception
+from src.exceptions.data_processing_exception import data_processing_exception
 
