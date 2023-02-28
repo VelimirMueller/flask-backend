@@ -18,6 +18,7 @@ def schema_validator(jsonData, validateSchema=False, useSchema={}):
     for key, val in jsonData.items():
         jsonCache.append(key)
         jsonCache.sort()
+        
     for key, val in useSchema.items():
         validSchema[key] = val
         schemaCache.append(key)

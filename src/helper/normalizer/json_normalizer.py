@@ -2,7 +2,7 @@ import json
 from src.exceptions import data_processing_exception
 from src.messages import DATA_PROCESSING_MESSAGES
 
-def json_normalizer(jsonData:dict[str, any]) ->dict[str, any]:
+def json_normalizer(jsonData:dict) ->dict:
     try:
         # convert type to str or dict
         jsonData = jsonData.data.decode('utf-8')
@@ -14,16 +14,12 @@ def json_normalizer(jsonData:dict[str, any]) ->dict[str, any]:
         # If string -> load string as dict/json
         elif type(jsonData) is str: 
             return json.loads(jsonData)
-        
-        # Wrong type will fail in request_helper()
-        else:
-            return False
     
     except Exception as err:
         return data_processing_exception(DATA_PROCESSING_MESSAGES['critical'], 500, str(err))
 
 
-def transform_normalized_json(jsonData:dict[str, any]) ->dict[str, any]:
+def transform_normalized_json(jsonData:dict) ->dict:
     try:
         if jsonData != False:
             newJson = {}
@@ -40,6 +36,7 @@ def transform_normalized_json(jsonData:dict[str, any]) ->dict[str, any]:
                 'statusCode': 500
             }
             return jsonData
+        
     except Exception as err:
         return data_processing_exception(DATA_PROCESSING_MESSAGES['critical'], 500, str(err))
 
