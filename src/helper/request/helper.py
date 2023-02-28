@@ -3,7 +3,7 @@ from src.helper.responses import return_success_response, return_error_response,
 from src.messages import API_MESSAGES
 import os
 
-def request_helper(request, validateSchema=False, schema={}):
+def request_helper(request:dict, validateSchema:bool=False , schema:dict={}):
     if 'exception' in request['data']:
         if str(os.environ.get('DEV_MODE')) == '1':
             devDebugMsg = request['data']
