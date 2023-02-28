@@ -1,7 +1,8 @@
 import json
-from src.exceptions import api_exception
+from src.exceptions import data_processing_exception
+from src.messages import DATA_PROCESSING_MESSAGES
 
-def json_normalizer(jsonData):
+def json_normalizer(jsonData:dict[str, any]) ->dict[str, any]:
     try:
         # convert type to str or dict
         jsonData = jsonData.data.decode('utf-8')
@@ -18,16 +19,17 @@ def json_normalizer(jsonData):
         else:
             return False
     
-    except:
-        return False
+    except Exception as err:
+        return data_processing_exception(DATA_PROCESSING_MESSAGES['critical'], 500, str(err))
 
 
-def transform_normalized_json(jsonData):
+def transform_normalized_json(jsonData:dict[str, any]) ->dict[str, any]:
+    try:
         if jsonData != False:
             newJson = {}
-             # Make sure request is json and has data key otherwise creates a data key and tries to validate request.
+                # Make sure request is json and has data key otherwise creates a data key and tries to validate request.
             if 'data' in jsonData.keys():
-                return jsonData
+                    return jsonData
             else:
                 newJson['data'] = jsonData
 
@@ -35,13 +37,18 @@ def transform_normalized_json(jsonData):
         else:
             jsonData = {
                 'data': False,
-                'statusCode': 400
+                'statusCode': 500
             }
             return jsonData
+    except Exception as err:
+        return data_processing_exception(DATA_PROCESSING_MESSAGES['critical'], 500, str(err))
 
 
-def return_transformed_normalized_json(jsonData):
-    normalizedJson = json_normalizer(jsonData)
-    transformedNormalizedJson = transform_normalized_json(normalizedJson)
+def return_transformed_normalized_json(jsonData :dict[str, any]) ->dict[str, any]:
+    try:
+        normalizedJson = json_normalizer(jsonData)
+        transformedNormalizedJson = transform_normalized_json(normalizedJson)
 
-    return transformedNormalizedJson
+        return transformedNormalizedJson
+    except Exception as err:
+        return data_processing_exception(DATA_PROCESSING_MESSAGES['critical'], 500, str(err))
