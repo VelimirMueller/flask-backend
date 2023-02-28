@@ -14,7 +14,7 @@ def schema_validator(jsonData:dict, validateSchema:bool=False, useSchema:dict={}
     # Make sure your endpoint can handle unvalidated schemas.
     if validateSchema == False or jsonData == False:
         return {
-            "status": 'Schema was not validated - please make sure you know what you are doing or enable schema validation in request_helper()!',
+            'status': 'Schema was not validated - please make sure you know what you are doing or enable schema validation in request_helper()!',
             'isValid': 'undefined'
         }
     jsonCache = []
@@ -33,24 +33,24 @@ def schema_validator(jsonData:dict, validateSchema:bool=False, useSchema:dict={}
     if(len(jsonCache) == len(schemaCache)):
         if(jsonCache == schemaCache):
             return {
-                "status": 'schema is valid and has correct length',
-                "isValid": True,
-                "keys_received": str(jsonCache),
-                "keys_in_schema": len(schemaCache)
+                'status': 'schema is valid and has correct length',
+                'isValid': True,
+                'keys_received': str(jsonCache),
+                'keys_in_schema': len(schemaCache)
             }
         else:
             return {
-                "status": 'invalid request keys - please check API schema for this request',
-                "validSchema": str(validSchema),
-                "isValid": False,
-                "keys_received": str(jsonCache),
-                "keys_in_schema": len(schemaCache)
+                'status': 'invalid request keys - please check API schema for this request',
+                'validSchema': str(validSchema),
+                'isValid': False,
+                'keys_received': str(jsonCache),
+                'keys_in_schema': len(schemaCache)
             }
     else:
         return {
-                "status": 'schema has invalid length, allowed length: ' + str(len(schemaCache)),
-                "isValid": False,
-                "keys_received": str(jsonCache),
-                "validSchema": str(validSchema),
-                "keys_in_schema": len(schemaCache)
+                'status': 'schema has invalid length, allowed length: ' + str(len(schemaCache)),
+                'isValid': False,
+                'keys_received': str(jsonCache),
+                'validSchema': str(validSchema),
+                'keys_in_schema': len(schemaCache)
             }
