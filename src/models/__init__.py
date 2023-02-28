@@ -1,1 +1,1 @@
-from src.models.usermodel import *
+from src.models.usermodel import User
