@@ -1,6 +1,6 @@
 from src.exceptions.exception_error import exception_error
 
-def api_exception(error, statusCode):
+def api_exception(error:str, statusCode:int)->dict:
   
   return {
     'message': exception_error(error + ', statusCode: ' + str(statusCode)),
