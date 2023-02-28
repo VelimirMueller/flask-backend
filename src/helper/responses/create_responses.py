@@ -26,7 +26,7 @@ def return_error_response(errorMessage:str, type:str='error type was not set', k
 def return_error_response_dev(errorMessage:str, type:str='error type was not set', keysInRequest:Union[int, str]='not checked', schema:Union[bool, str]='not checked', statusCode:int=400, isDevMode:bool=False, devDebuggingMessage:Union[bool, str]='dev mode not active - pls set DEV_MODE=1 in .flaskenv')->dict:
     # Returns like return_error_response an normalized response. The only difference occurs when setting DEV_MODE=1 in .flaskenv.
     # This way the response will contain a dev debugging message, containing the exception message
-    if str(os.environ.get('DEV_MODE')) == "1":
+    if str(os.environ.get('DEV_MODE')) == '1':
         isDevMode = True
         devDebuggingMessage = devDebuggingMessage
     return {
